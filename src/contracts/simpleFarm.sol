@@ -9,8 +9,6 @@ contract Farm {
     //withdraw funds 
     //-> should auto call withdraw yeild
     //withdraw yeild
-    //calculate a user's yield
-    //add new pool
     
 
     //NOTES
