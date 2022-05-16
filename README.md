@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+<h1>Simple Farm</h1>
+<br/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3>TLDR</h3>
+    defi v1.5 - chainlink keepers based nft rewards for single side farming
+<br/>
+<br/>
 
-## Available Scripts
+<h3> Some notes before proceeding
+</h3>
+<ul>
+<li>Code may or may not have bugs(depending on who's reading kek)</li>
+<li>The idea of using keepers for automatically distributing is only feasible if a decent revenue is being made</li>
+<li>
+no front end has been made atm, gonna find the will to do it soon(maybe idk)
+</li>
+<li>no tests have been written, all of it was manually tested</li>
+<li>
+most of this was coded on remix(manual testing)
+</li>
+<li>
+donot ask why there's a receive and fallback function in the end, it just is.</li>
+</ul>
+<br/>
+<h3>
+Spin it up
+</h3>
+<br/>
+<ul>
+<li>
+considering you have the repo downloaded, use "npm install" in the root folder
+</li>
+<li>
+hardhat config file is likely going to be missing so do initialize it and use 0.8.7 version of solidty
+</li>
+<li>
+I didn't run a chainlink test node locally instead i used rinkeby
+</li>
+<li>
+make sure to register your own keeper with your contract address</li>
+<li>
+    The current ERC20 address in the deploy script is rinkeby-testnet-dai, you can change it to another ERC20 if you want
+</li>
+</ul>
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<br/>
+<h3>
+Constructor args
+</h3>
+<ul>
+<li>ERC20 address that the user will deposit</li>
+<li>Time limit after which the keepers will run</li>
+<li>NFT address that will be distributed as rewards</li>
+</ul>
+<br/>
