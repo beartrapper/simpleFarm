@@ -1,5 +1,4 @@
 <h1>Simple Farm</h1>
-<br/>
 
 <h3>TLDR</h3>
     defi v1.5 - chainlink keepers based nft rewards for single side farming

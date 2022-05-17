@@ -9,20 +9,22 @@ async function main() {
 
   console.log("farmNFT deployed to:", farmNFT.address);
 
-  const Farm = await hre.ethers.getContractFactory("SimpleFarm");
+  // const Farm = await hre.ethers.getContractFactory("SimpleFarm");
 
-  //first arg is the testnet dai on rinkeby
-  //second arg is the time in seconds for keepers
-  //third is the NFT addy
-  const farm = await Farm.deploy(
-    "0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8",
-    3600,
-    // farmNFT.address
-    "0x5E53188E22F4F3736205D7Ff9796715cEA5dE269"
-  );
-  await farm.deployed();
+  // //first arg is the testnet dai on rinkeby
+  // //second arg is the time in seconds for keepers
+  // //third is the NFT addy
+  // const farm = await Farm.deploy(
+  //   "0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8",
+  //   3600,
+  //   // farmNFT.address
+  //   "0x342994474786b3c43cba3c0990de17a31c2c826e"
+  // );
+  // console.log("farm deployed to:", farm.address);
 
-  console.log("farm deployed to:", farm.address);
+  // await farm.deployed();
+
+  // console.log("farm deployed to:", farm.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
