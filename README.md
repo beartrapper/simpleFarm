@@ -3,6 +3,7 @@
 <h3>TLDR</h3>
     defi v1.5 - chainlink keepers based nft rewards for single side farming
 <br/>
+<a href="https://inquisitive-valkyrie-4cfea1.netlify.app/">live app(may or may not be up depending on the free-tier-server uptime) </a>
 <br/>
 <b>
 FRONT END IS AWFULLY UGLY SO PLEASE HAVE A BARF-BAG WITH YOU WHEN YOU OPEN THE APP
@@ -44,7 +45,7 @@ I didn't run a chainlink test node locally instead i used rinkeby
 <li>
 make sure to register your own keeper with your contract address</li>
 <li>
-    The current ERC20 address in the deploy script is rinkeby-testnet-dai, you can change it to another ERC20 if you want
+    The current ERC20 address in the deploy script is rinkeby-testnet-dai(0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8), you can change it to another ERC20 if you want
 </li>
 </ul>
 

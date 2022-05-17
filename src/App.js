@@ -48,21 +48,21 @@ function App() {
       const addr = await signer.getAddress();
 
       //getting the farm contract
-      const contractFarm = new ethers.Contract(
+      const contractFarm = await new ethers.Contract(
         artifact.address,
         artifact.abi,
         provider.getSigner()
       );
 
       //getting the farm NFT contract
-      const contractFarmNFT = new ethers.Contract(
+      const contractFarmNFT = await new ethers.Contract(
         artifactNFT.address,
         artifactNFT.abi,
         provider.getSigner()
       );
 
       //getting the testnet dai contract
-      const contractTestnetDai = new ethers.Contract(
+      const contractTestnetDai = await new ethers.Contract(
         artifactDAI.address,
         artifactDAI.abi,
         provider.getSigner()
@@ -79,7 +79,7 @@ function App() {
       checkApproved();
       getRewardNFTs();
       // this has to be inside this function
-      setFetchData(true);
+      // setFetchData(true);
     };
 
     setup();
@@ -141,7 +141,7 @@ function App() {
   const withdraw = () => {
     if (amount <= amountStaked) {
       farmContract
-        .withdraw(amount)
+        .withdrawFundsFromPool(amount)
         .then((res) => {
           //call staked function
           farmContract
@@ -203,7 +203,9 @@ function App() {
     farmNFTContract
       .balanceOf(currentUserAddress)
       .then((res) => {
+        console.log(res);
         setRewards(res.toString());
+        setFetchData(true);
       })
       .catch((err) => {
         console.log(
@@ -214,46 +216,63 @@ function App() {
   };
 
   return (
-    <div className="main-div">
-      <div className="row1-container">
-        <div className="box box-down cyan">
-          <h2>Total Value Pooled: {totalPooled}</h2>
-        </div>
-
-        <div className="box red">
-          <h2>
-            Amount: {"               "}
-            <input type="number" onChange={(e) => setAmount(e.target.value)} />
-          </h2>{" "}
-        </div>
-
-        <div className="box box-down blue">
-          <h2>Rewards: {rewards}</h2>
-        </div>
-      </div>
-      <div className="row2-container">
-        <div className="box orange">
-          <h2>Your Stake: {amountStaked}</h2>
-        </div>
-      </div>
-      {approveButton ? (
-        <button
-          className="button-9"
-          role="button"
-          onClick={() => getApproved()}
-        >
-          Approve
-        </button>
+    <div>
+      {!fetchData ? (
+        <div>Loading</div>
       ) : (
-        <div>
-          <br />
-          <button className="button-9" role="button" onClick={() => stake()}>
-            Stake
-          </button>{" "}
-          {"   "}
-          <button className="button-9" role="button" onClick={() => withdraw()}>
-            Unstake
-          </button>
+        <div className="main-div">
+          <div className="row1-container">
+            <div className="box box-down cyan">
+              <h2>Total Value Pooled: {totalPooled}</h2>
+            </div>
+
+            <div className="box red">
+              <h2>
+                Amount: {"               "}
+                <input
+                  type="number"
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </h2>{" "}
+            </div>
+
+            <div className="box box-down blue">
+              <h2>Rewards: {rewards} NFTs</h2>
+            </div>
+          </div>
+          <div className="row2-container">
+            <div className="box orange">
+              <h2>Your Stake: {amountStaked}</h2>
+            </div>
+          </div>
+          {approveButton ? (
+            <button
+              className="button-9"
+              role="button"
+              onClick={() => getApproved()}
+            >
+              Approve
+            </button>
+          ) : (
+            <div>
+              <br />
+              <button
+                className="button-9"
+                role="button"
+                onClick={() => stake()}
+              >
+                Stake
+              </button>{" "}
+              {"   "}
+              <button
+                className="button-9"
+                role="button"
+                onClick={() => withdraw()}
+              >
+                Unstake
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
