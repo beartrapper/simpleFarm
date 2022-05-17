@@ -4,7 +4,10 @@
     defi v1.5 - chainlink keepers based nft rewards for single side farming
 <br/>
 <br/>
-
+<b>
+FRONT END IS AWFULLY UGLY SO PLEASE HAVE A BARF-BAG WITH YOU WHEN YOU OPEN THE APP
+</b>
+<br/>
 <h3> Some notes before proceeding
 </h3>
 <ul>
@@ -18,7 +21,10 @@ no front end has been made atm, gonna find the will to do it soon(maybe idk)
 most of this was coded on remix(manual testing)
 </li>
 <li>
+</li>
+<li>
 donot ask why there's a receive and fallback function in the end, it just is.</li>
+
 </ul>
 <br/>
 <h3>
