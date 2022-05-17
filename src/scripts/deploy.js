@@ -1,3 +1,4 @@
+const fs = require("fs");
 const hre = require("hardhat");
 
 async function main() {
@@ -20,9 +21,25 @@ async function main() {
     // farmNFT.address
     "0x5E53188E22F4F3736205D7Ff9796715cEA5dE269"
   );
-  await farm.deployed();
 
+  await farm.deployed();
   console.log("farm deployed to:", farm.address);
+
+  //data to be saved for frontend interactions
+  let data = {
+    address: farmNFT.address,
+    abi: JSON.parse(farmNFT.interface.format("json")),
+  };
+
+  //need to access abi hence saving it somewhere
+  fs.writeFileSync("compiled-json/farmNFT.json", JSON.stringify(data));
+
+  data = {
+    address: farm.address,
+    abi: JSON.parse(farm.interface.format("json")),
+  };
+
+  fs.writeFileSync("compiled-json/farm.json", JSON.stringify(data));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
