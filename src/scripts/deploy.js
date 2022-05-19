@@ -18,8 +18,8 @@ async function main() {
   const farm = await Farm.deploy(
     "0xc3dbf84abb494ce5199d5d4d815b10ec29529ff8",
     3600,
-    // farmNFT.address
-    "0x5E53188E22F4F3736205D7Ff9796715cEA5dE269"
+    farmNFT.address
+    // "0x5E53188E22F4F3736205D7Ff9796715cEA5dE269"
   );
 
   await farm.deployed();

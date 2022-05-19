@@ -12,7 +12,7 @@ function App() {
   const [currentUserAddress, setCurrentUserAddress] = useState(0);
 
   //laoding check
-  const [fetchData, setFetchData] = useState(false);
+  const [fetchData, setFetchData] = useState(true);
 
   //enable/disbale approve button
   const [approveButton, setApproveButton] = useState(true);
@@ -34,7 +34,6 @@ function App() {
   useEffect(() => {
     //cant use asycn with useEffect, it causes a race condition
     //instead making another async function
-
     const setup = async () => {
       //getting wallet and addresses
       const provider = new ethers.providers.Web3Provider(
@@ -48,65 +47,103 @@ function App() {
       const addr = await signer.getAddress();
 
       //getting the farm contract
-      const contractFarm = await new ethers.Contract(
+      const contractFarm = new ethers.Contract(
         artifact.address,
         artifact.abi,
-        provider.getSigner()
+        signer
       );
 
       //getting the farm NFT contract
-      const contractFarmNFT = await new ethers.Contract(
+      const contractFarmNFT = new ethers.Contract(
         artifactNFT.address,
         artifactNFT.abi,
-        provider.getSigner()
+        signer
       );
 
       //getting the testnet dai contract
-      const contractTestnetDai = await new ethers.Contract(
+      const contractTestnetDai = new ethers.Contract(
         artifactDAI.address,
         artifactDAI.abi,
-        provider.getSigner()
+        signer
       );
+
+      console.log(contractFarm.userToAmountDeposited(addr));
+      console.log(contractFarmNFT);
+      console.log(contractTestnetDai);
 
       setFarmContract(contractFarm);
       setFarmNFTContract(contractFarmNFT);
       setTestnetDaiContract(contractTestnetDai);
       setCurrentUserAddress(addr);
 
-      //calling pre-req functions
-      getTotalValuePooled();
-      stakedAmount();
-      checkApproved();
-      getRewardNFTs();
-      // this has to be inside this function
-      // setFetchData(true);
+      //CALLING PRE-REQ FUNCTIONS
+      //get user amount staked
+      contractFarm
+        .userToAmountDeposited(addr)
+        .then((res) => {
+          //update state
+          setAmountStaked(res.toString());
+        })
+        .catch((err) => {
+          console.log(
+            "your code made a poopoo while fetching staked amount: ",
+            err
+          );
+        });
+
+      // getRewardNFTs();
+      contractFarmNFT
+        .balanceOf(addr)
+        .then((res) => {
+          setRewards(res.toString());
+        })
+        .catch((err) => {
+          console.log(
+            "your code made a poopoo while fetching nft rewards: ",
+            err
+          );
+        });
+
+      // checkApproved();
+      contractTestnetDai
+        .allowance(addr, artifact.address)
+        .then((res) => {
+          //disable if already approved
+          if (res.toString() == approvalAmount) setApproveButton(false);
+        })
+        .catch((err) => {
+          console.log("your code made a poopoo on checking approval: ", err);
+        });
+
+      // getTotalValuePooled();
+      contractFarm
+        .totalAmountInPool()
+        .then((res) => {
+          //update state
+          setTotalPooled(res.toString());
+        })
+        .catch((err) => {
+          console.log(
+            "your code made a poopoo while fetching total value pooled: ",
+            err
+          );
+        });
     };
 
+    //call the func
     setup();
   }, []);
-
-  //dai token approval function
-  const checkApproved = () => {
-    testnetDaiContract
-      .allowance(currentUserAddress, artifact.address)
-      .then((res) => {
-        console.log(res.toString());
-        console.log(res.toString() == approvalAmount);
-        //disable if already approved
-        if (res.toString() == approvalAmount) setApproveButton(false);
-      })
-      .catch((err) => {
-        console.log("your code made a poopoo on checking approval: ", err);
-      });
-  };
 
   //approve the contract
   const getApproved = () => {
     testnetDaiContract
       .approve(artifact.address, approvalAmount)
       .then((res) => {
+        console.log(res);
         //update state
-        setApproveButton(false);
+
+        //wait for transaction to complete
+        res.wait().then(() => setApproveButton(false));
       })
       .catch((err) => {
         console.log("your code made a poopoo on approval: ", err);
@@ -166,61 +203,15 @@ function App() {
     }
   };
 
-  //get current stake
-  const stakedAmount = () => {
-    farmContract
-      .userToAmountDeposited(currentUserAddress)
-      .then((res) => {
-        //update state
-        setAmountStaked(res.toString());
-      })
-      .catch((err) => {
-        console.log(
-          "your code made a poopoo while fetching staked amount: ",
-          err
-        );
-      });
-  };
-
-  //get total value locked in pool
-  const getTotalValuePooled = () => {
-    farmContract
-      .totalAmountInPool()
-      .then((res) => {
-        //update state
-        setTotalPooled(res.toString());
-      })
-      .catch((err) => {
-        console.log(
-          "your code made a poopoo while fetching total value pooled: ",
-          err
-        );
-      });
-  };
-
-  //get reward NFTs
-  const getRewardNFTs = () => {
-    farmNFTContract
-      .balanceOf(currentUserAddress)
-      .then((res) => {
-        console.log(res);
-        setRewards(res.toString());
-        setFetchData(true);
-      })
-      .catch((err) => {
-        console.log(
-          "your code made a poopoo while fetching nft rewards: ",
-          err
-        );
-      });
-  };
-
   return (
     <div>
       {!fetchData ? (
         <div>Loading</div>
       ) : (
         <div className="main-div">
+          {/* <button className="button-9" onClick={() => setup()}>
+            Connect wallet
+          </button> */}
           <div className="row1-container">
             <div className="box box-down cyan">
               <h2>Total Value Pooled: {totalPooled}</h2>

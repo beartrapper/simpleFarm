@@ -120,6 +120,12 @@ contract SimpleFarm is KeeperCompatibleInterface {
         }
     }
 
+    //calling the mapping function from the frontend doesnt always respond properly
+    //hence making a getter function
+    function getUserToAmountDeposited() public view returns (uint256){
+        return userToAmountDeposited[msg.sender];
+    }
+
     //pls dont ask me why im adding these
     receive() external payable {}
     fallback() external payable {}
