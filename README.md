@@ -2,9 +2,9 @@
 
 <h3>TLDR</h3>
     defi v1.5 - chainlink keepers based nft rewards for single side farming
-<br/>
+<br>
 <a href="https://inquisitive-valkyrie-4cfea1.netlify.app/">live app(may or may not be up depending on the free-tier-server uptime) </a>
-<br/>
+<br>
 <b>
 FRONT END IS AWFULLY UGLY SO PLEASE HAVE A BARF-BAG WITH YOU WHEN YOU OPEN THE APP
 </b>
