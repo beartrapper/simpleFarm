@@ -108,8 +108,9 @@ function App() {
       contractTestnetDai
         .allowance(addr, artifact.address)
         .then((res) => {
+          console.log(res.toString());
           //disable if already approved
-          if (res.toString() == approvalAmount) setApproveButton(false);
+          if (res.toString() > 900000000000000000000) setApproveButton(false);
         })
         .catch((err) => {
           console.log("your code made a poopoo on checking approval: ", err);
