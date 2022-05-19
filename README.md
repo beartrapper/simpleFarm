@@ -2,9 +2,9 @@
 
 <h3>TLDR</h3>
     defi v1.5 - chainlink keepers based nft rewards for single side farming
-<br>
+<hr />
 <a href="https://inquisitive-valkyrie-4cfea1.netlify.app/">live app(may or may not be up depending on the free-tier-server uptime) </a>
-<br>
+<hr />
 <b>
 FRONT END IS AWFULLY UGLY SO PLEASE HAVE A BARF-BAG WITH YOU WHEN YOU OPEN THE APP
 </b>
@@ -20,8 +20,6 @@ no front end has been made atm, gonna find the will to do it soon(maybe idk)
 <li>no tests have been written, all of it was manually tested</li>
 <li>
 most of this was coded on remix(manual testing)
-</li>
-<li>
 </li>
 <li>
 donot ask why there's a receive and fallback function in the end, it just is.</li>
